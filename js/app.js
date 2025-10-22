@@ -1,3 +1,64 @@
+document.addEventListener('DOMContentLoaded', function () {
+  // Spinner
+  const spinner = document.getElementById('spinner');
+  if (spinner) {
+    spinner.classList.add('opacity-0', 'pointer-events-none');
+    setTimeout(() => spinner.remove(), 600);
+  }
+
+  // Menu mobile
+  const mobileBtn = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const closeMenu = document.getElementById('close-menu');
+  if (mobileBtn && mobileMenu) mobileBtn.addEventListener('click', () => mobileMenu.classList.remove('hidden'));
+  if (closeMenu && mobileMenu) closeMenu.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+  document.querySelectorAll('.mobile-nav-link').forEach(l => l.addEventListener('click', () => mobileMenu && mobileMenu.classList.add('hidden')));
+
+  // Typed.js
+  if (window.Typed) {
+    new Typed('#typed-text', { strings: ['Développeur Web', 'Infographe', 'Étudiant en médecine'], typeSpeed: 60, backSpeed: 40, loop: true });
+  }
+
+  // Visitor count (appelle la function Netlify qui exécute Express)
+  const visitorEl = document.getElementById('visitor-count');
+  if (visitorEl) {
+    fetch('/.netlify/functions/server/visitor')
+      .then(r => r.json())
+      .then(data => { visitorEl.textContent = data.count; })
+      .catch(() => { /* silencieux */ });
+  }
+
+  // Progress bars animation (IntersectionObserver)
+  const bars = document.querySelectorAll('.skill-item [data-width]');
+  if ('IntersectionObserver' in window && bars.length) {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const w = el.getAttribute('data-width');
+          el.style.width = w;
+          io.unobserve(el);
+        }
+      });
+    }, { threshold: 0.2 });
+    bars.forEach(b => io.observe(b));
+  }
+
+  // Simple counters
+  document.querySelectorAll('.counter').forEach(c => {
+    const target = +c.getAttribute('data-target') || 0;
+    let current = 0;
+    const step = Math.max(1, Math.floor(target / 100));
+    const t = setInterval(() => {
+      current += step;
+      if (current >= target) { c.textContent = target; clearInterval(t); } else { c.textContent = current; }
+    }, 15);
+  });
+
+  // Init AOS si présent
+  if (window.AOS) AOS.init({ once: true, duration: 800 });
+});
+
 // Initialisation AOS (Animation on Scroll)
 AOS.init({
     duration: 1000,

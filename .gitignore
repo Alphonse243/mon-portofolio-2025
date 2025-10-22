@@ -25,3 +25,6 @@ Thumbs.db
 /db
 /lib
 /scss
+
+# Local Netlify folder
+.netlify
