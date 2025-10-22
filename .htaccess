@@ -1,0 +1,47 @@
+<IfModule mod_expires.c>
+
+    
+
+    # ExpiresActive On
+    # ExpiresByType images/jpg "access plus 1 year"
+    # ExpiresByType images/jpeg "access plus 1 year"
+    # ExpiresByType images/gif "access plus 1 year"
+    # ExpiresByType images/png "access plus 1 year"
+
+    # ExpiresByType img/x-icon "access plus 1 year"
+    # ExpiresByType img/jpg "access plus 1 year"
+    # ExpiresByType img/jpeg "access plus 1 year"
+    # ExpiresByType img/gif "access plus 1 year"
+    # ExpiresByType img/png "access plus 1 year"
+
+    # ExpiresByType css/css "access plus 1 month"
+    # ExpiresByType assets/css "access plus 1 month"
+    # ExpiresByType css/css "access plus 1 month"
+    # ExpiresByType plugins/OwlCarousel2-2.2.1/css "access plus 1 month"
+    # ExpiresByType styles/css "access plus 1 month"
+    # ExpiresByType plugins/jquery-ui-1.12.1.custom/css "access plus 1 month"
+
+    # ExpiresByType text/html "access plus 1 hour"
+    # ExpiresByType application/pdf "access plus 1 month"
+    # ExpiresByType text/x-javascript "access plus 1 month"
+    # ExpiresByType application/x-shockwave-flash "access plus 1 month"
+    # ExpiresByType images/x-icon "access plus 1 year"
+    
+    ExpiresDefault "access plus 2 days"
+    ;; RewriteiteEngine On
+    ;; RewriteRule ^single/([0-9]+)/([a-zA-Z0-9-]+)$ index.php?page=single&id=$1&slug=$2[L,QSA]
+    ;; RewriteRule ^home$ index.php?page=home[L,QSA]
+
+
+</IfModule>
+
+
+RewriteEngine On
+
+# Réécriture pour index.php
+RewriteRule ^index$ index.php [L]
+
+# Réécriture pour index.php?page=home
+RewriteRule ^home$ index.php=home [L]
+RewriteRule ^graphique$ graphique.php=graphique [L]
+RewriteRule ^rapport$ rapport.php=rapport [L]
